@@ -111,7 +111,20 @@ main {
   max-width: 405px;
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
+  row-gap: 20px;
+}
+#last-ones .last-posts .popular-posts-card > .last-posts-img {
+  width: 100%;
+}
+#last-ones .last-posts .popular-posts-card > .last-posts-img > img {
+  height: 300px;
+  width: 100%;
+}
+#last-ones .last-posts .popular-posts-card > .last-posts-text {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }
 #last-ones .last-posts .popular-posts-card h1 {
   color: var(--Black, #232536);

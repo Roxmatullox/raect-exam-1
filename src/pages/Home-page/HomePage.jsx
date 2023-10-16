@@ -32,7 +32,7 @@ const HomePage = () => {
   useEffect(()=>{
     const getLastOnes = async ()=>{
       try {
-        const {data} = await request.get("post/lastones?limit=3")
+        const {data} = await request.get("post/lastones")
         setLastOnes(data)
       } catch (err) {
         console.log(err);
@@ -96,7 +96,6 @@ const HomePage = () => {
   };
 
 
-
   return (
     <main>
       <section id="home">
@@ -123,27 +122,17 @@ const HomePage = () => {
               {
                 lastOnes?.map((el)=>{
                   const lastPostsDate = new Date(el?.createdAt).toString().split(" ").slice(1, 4)
-                  // const imgTur = el.photo.name.split(".")[1]
-                  // const requestImg = `upload/${el.photo._id}.${imgTur}`
-                  // const getPhoto = async () =>{
-                  //   try {
-                  //     const img = await imgRequest.get(requestImg)
-                  //     let popularPostsPhoto = (img?.request);
-                  //     setLastOnesImg(popularPostsPhoto?.responseURL);
-                  //   } catch (err) {
-                  //     console.log(err);
-                  //   }
-                  // }
-                  // getPhoto()
+                  const imgTur = el.photo.name.split(".")[1]
                   return(
                     <div className="last-posts" key={el._id}>
                       <div className="popular-posts-card">
                         <div className="last-posts-img">
+                          <img src={`https://ap-blog-backend.up.railway.app/upload/${el.photo._id}.${imgTur}`} alt="" />
                         </div>
                         <div className="last-posts-text">
-                          <h4>By <span>{lastOne?.user.first_name}</span>  |  {`${lastPostsDate[0]} ${lastPostsDate[1]},  ${lastPostsDate[2]}`} </h4>
+                          <h4>By <span>{el?.user.first_name}</span>  |  {`${lastPostsDate[0]} ${lastPostsDate[1]},  ${lastPostsDate[2]}`} </h4>
                           <h1>{el?.title}</h1>
-                          <p>{el?.description}</p>
+                          <p>{el?.description.slice(0,80)}...</p>
                         </div>
                       </div>
                     </div>
