@@ -184,7 +184,10 @@ const MyPostsPage = () => {
                           <h3>{post?.title}</h3>
                           <p>{post?.description.slice(0,100)}</p>
                           <div>
-                            <Button onClick={()=>deletePost(post._id)} type="primary">Delete</Button>
+                            <Button style={{
+                              marginRight:"10px",
+                              backgroundColor:"red"
+                            }} onClick={()=>deletePost(post._id)} type="primary">Delete</Button>
                             <Button onClick={()=>editPost(post._id)} type="primary">Edit</Button>
                           </div>
                         </div>
