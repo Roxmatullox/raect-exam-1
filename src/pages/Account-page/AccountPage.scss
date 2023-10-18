@@ -9,19 +9,21 @@
       grid-template-columns: 1fr;
     }
   }
+
+  h1{
+    color: #232536;
+    text-align: center;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 64px; /* 133.333% */
+    letter-spacing: -2px;
+  }
 }
 
 
 
-h1{
-  color: #232536;
-  text-align: center;
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 64px; /* 133.333% */
-  letter-spacing: -2px;
-}
+
 
 
 .logout-btn{

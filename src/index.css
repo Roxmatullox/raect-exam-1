@@ -17,3 +17,8 @@
 a{
   text-decoration: none;
 }
+
+.loading{
+  height: calc(100vh - 116px);
+  width: 100%;
+}
