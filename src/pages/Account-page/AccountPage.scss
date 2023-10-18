@@ -2,10 +2,18 @@
 .account-page{
   display: grid;
   grid-template-columns: 1fr 2fr;
+  gap: 40px ;
 }
 
 
-
+.logout-btn{
+  padding: 10px 20px;
+  background-color: crimson;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  color: white;
+  border: none;
+}
 
 .account-page-inputs{
   padding: 40px 0;
@@ -16,8 +24,25 @@
     border-radius: 2px;
     border: 1px solid rgba(109, 110, 118, 0.50);
   }
+
+  button{
+    padding: 10px 20px;
+    background: var(--Yellow, #FFD050); 
+    border: none; 
+  }
 }
 
 .account-page-img{
   padding: 40px 0;
+}
+
+
+.ant-upload.ant-upload-select{
+  width: 100% !important;
+  height: 300px !important;
+
+  img{
+    object-fit: cover !important;
+    border-radius: 10px;
+  }
 }

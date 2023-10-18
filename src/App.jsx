@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import RegisterPage from "./pages/Register-page/RegisterPage"
 import { AuthContext } from "./context/AuthContext"
-import { Fragment, useContext } from "react"
+import { useContext } from "react"
 import AccountPage from "./pages/Account-page/AccountPage"
 import MyPostsPage from "./pages/My-posts-page/MyPostsPage"
 import Layout from "./components/Layout/front/Layout"
@@ -35,20 +35,20 @@ function App() {
         {
           isAuth ? 
             <Route element={<Layout />}>
-              <Route path="myPosts" element={<MyPostsPage />} />
+              <Route element={role==="admin" ? null : <Layout />}><Route path="account" element={<AccountPage />} /></Route>
             </Route>
           : null
         }
 
         {
-          isAuth && role === "user" ? <Route element={role==="admin" ? null : <Layout />}><Route path="account" element={<AccountPage />} /></Route> : null
+          isAuth && role === "user" ? <Route path="myPosts" element={<MyPostsPage />} />          : null
         }
 
         {
           isAuth && role === "admin" ? 
-            <Fragment>
+            <Route element={<Layout />}>
               <Route path="dashboard" element={<DashboardPage />} />
-            </Fragment>
+            </Route>
           : null
         }
 

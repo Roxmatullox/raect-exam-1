@@ -16,8 +16,9 @@ const AuthContextProvider = ({children}) => {
 
   const getUser = async ()=>{
     try {
-      const {data} = await request.get("auth/me" , { headers:{ Authorization : `Bearer ${Cookies.get("isLogin")}`}})
+      const {data} = await request.get("auth/me" )
       setUser(data)
+      console.log(data?.photo)
     } catch (err) {
       console.log(err);
     }
@@ -34,6 +35,7 @@ const AuthContextProvider = ({children}) => {
     user ,
     setIsAuth,
     setRole,
+    getUser,
   }
 
   return (
