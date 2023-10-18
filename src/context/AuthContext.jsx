@@ -1,6 +1,7 @@
-import { useState , createContext} from "react"
+import { useState , createContext, useEffect} from "react"
 import PropTypes from "prop-types"
 import Cookies from "js-cookie"
+import request from "../server"
 
 export const AuthContext = createContext()
 
@@ -10,10 +11,27 @@ const AuthContextProvider = ({children}) => {
 
   const [role , setRole] = useState( Cookies.get("role") || "user")
 
+  const [ user , setUser] = useState(null)
+
+
+  const getUser = async ()=>{
+    try {
+      const {data} = await request.get("auth/me" , { headers:{ Authorization : `Bearer ${Cookies.get("isLogin")}`}})
+      setUser(data)
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(()=>{
+    getUser()
+  } , [])
+
 
   const state = {
     isAuth,
     role,
+    user ,
     setIsAuth,
     setRole,
   }

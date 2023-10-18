@@ -53,11 +53,11 @@ const RegisterPage = () => {
         <div className="register-section">
           <h1>Register</h1>
           <form >
-            <input id="firstName" placeholder="Firstname" type="text" />
-            <input id="lastName" placeholder="Lastname" type="text" />
-            <input id="username" placeholder="Username" type="text" />
-            <input id="password" placeholder="Password" type="password" />
-            <input id="confirm" placeholder="Confirm password" type="password" />
+            <input required id="firstName" placeholder="Firstname" type="text" />
+            <input required id="lastName" placeholder="Lastname" type="text" />
+            <input required id="username" placeholder="Username" type="text" />
+            <input required id="password" placeholder="Password" type="password" />
+            <input required id="confirm" placeholder="Confirm password" type="password" />
             {
               isConfirm ? null : <p>Password false !</p>
             }

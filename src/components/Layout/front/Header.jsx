@@ -20,7 +20,7 @@ const Header = () => {
           </div>
           <div className="header-right">
             <NavLink to="">Home</NavLink>
-            <NavLink to="blog">Blog</NavLink>
+            <NavLink to="all-posts">Blog</NavLink>
             <NavLink to="about">About Us</NavLink>
             <NavLink to="register">Register</NavLink>
             {

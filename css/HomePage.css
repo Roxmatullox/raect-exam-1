@@ -119,6 +119,10 @@ main {
 #last-ones .last-posts .popular-posts-card > .last-posts-img > img {
   height: 300px;
   width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
 }
 #last-ones .last-posts .popular-posts-card > .last-posts-text {
   padding: 10px;
@@ -140,4 +144,46 @@ main {
   font-style: normal;
   font-weight: 400;
   line-height: 28px; /* 175% */
+}
+
+#categories {
+  padding: 70px 0;
+}
+#categories h2 {
+  color: var(--Black, #232536);
+  margin-bottom: 70px;
+  text-align: center;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: -2px;
+}
+#categories .category-card {
+  border: 1px solid var(--Medium-grey, #6D6E76);
+  margin: 10px;
+  padding: 32px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  transition: 0.5s;
+}
+#categories .category-card h4 {
+  color: var(--Black, #232536);
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px; /* 142.857% */
+  letter-spacing: -1px;
+}
+#categories .category-card p {
+  color: var(--Medium-grey, #6D6E76);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px; /* 175% */
+}
+#categories .category-card:hover {
+  background-color: #FFD050;
 }

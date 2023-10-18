@@ -1,0 +1,23 @@
+
+.account-page{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+
+
+
+.account-page-inputs{
+  padding: 40px 0;
+  input{
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    border: 1px solid rgba(109, 110, 118, 0.50);
+  }
+}
+
+.account-page-img{
+  padding: 40px 0;
+}
