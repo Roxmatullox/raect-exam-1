@@ -3,8 +3,11 @@ import { useParams } from "react-router-dom"
 import "./BlogPost.scss"
 import { useEffect, useState } from "react";
 import request from "../../server";
+import Loading from "../Loading/Loading";
 
 const BlogPostPage = () => {
+
+  const [ loading , setLoading] = useState()
 
   const {id} = useParams()
 
@@ -13,10 +16,13 @@ const BlogPostPage = () => {
   useEffect(()=>{
    const getPost = async () =>{
     try {
+      setLoading(true)
       const {data} = await request.get(`post/${id}`)
       setPost(data);
     } catch (err) {
       console.log(err);
+    } finally{
+      setLoading(false)
     }
    }
    getPost(  )
@@ -30,7 +36,8 @@ const BlogPostPage = () => {
 
   return (
     <main>
-      <div className="container">
+      {
+        loading ? <Loading/> : <div className="container">
         <div className="post-container">
           <div className="post-img">
             <img src={`https://ap-blog-backend.up.railway.app/upload/${post?.photo._id}.${imgTur}`} alt="" />
@@ -56,6 +63,7 @@ const BlogPostPage = () => {
           </div>
         </div>
       </div>
+      }
     </main>
   )
 }

@@ -1,14 +1,24 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import request from "../../server";
 import { Link } from "react-router-dom";
-import { Button, Modal } from "antd";
+import { Button, Modal, Upload } from "antd";
 
 import "./MyPosts.scss"
 import Loading from "../Loading/Loading";
+import { AuthContext } from "../../context/AuthContext";
 
 const MyPostsPage = () => {
 
+  const {getUser} = useContext(AuthContext)
+
+
+  const [postPhoto , setPostPhoto] = useState(null)
+
+  const [ photo , setPhoto] = useState()
+
   const [ loading , setLoading] = useState()
+
+  const [ loadingPosts , setLoadingPosts] = useState()
 
   const [allPosts , SetAllPosts] = useState()
 
@@ -38,7 +48,7 @@ const MyPostsPage = () => {
   useEffect(()=>{
     const getAllPosts = async ()=>{
       try {
-        setLoading(true)
+        setLoadingPosts(true)
         const {data} = await request.get(`post/user?limit=8&search=${search}&page=${active}`)
         SetAllPosts(data.data);
         const pages = data.pagination.total / 8
@@ -46,7 +56,7 @@ const MyPostsPage = () => {
       } catch (err) {
         console.log(err);
       } finally{
-        setLoading(false)
+        setLoadingPosts(false)
       }
     }
     getAllPosts()
@@ -56,8 +66,15 @@ const MyPostsPage = () => {
   const deletePost = async (id)=>{
     const deleteConfirm = confirm("Bu post ochirilsinmi ?")
     if (deleteConfirm) {
-      setDeletedPost(id)
-      await request.delete(`post/${id}`)
+      try {
+        setLoading(true)
+        await request.delete(`post/${id}`)
+      } catch (err) {
+        console.log(err);
+      }finally{
+        setDeletedPost(id)
+        setLoading(false)
+      }
     }
   }
 
@@ -69,9 +86,8 @@ const MyPostsPage = () => {
       description : e.target.description.value,
       tags : e.target.tags.value,
       category : e.target.category.value,
-      photo : "6412131483b154fb6bf1199d"
+      photo : photo || "6412131483b154fb6bf1199d"
     }
-    console.log(values);
     try {
       setLoading(true)
       await request.post("post" , values)
@@ -83,6 +99,21 @@ const MyPostsPage = () => {
       setLoading(false)
     }
   }
+
+
+  const getImg = async(e)=>{
+    const formData = new FormData()
+    formData.append('file' , e.file.originFileObj )
+    try {
+      const {data} = await request.post(`upload` , formData)
+      setPhoto(`${data._id}`)
+      setPostPhoto(`${data._id}.${data.name.split(".")[1]}`) 
+      getUser()
+    } catch (err) {
+      console.log(err);
+    } 
+  }
+
 
   return (
     <main>
@@ -100,7 +131,7 @@ const MyPostsPage = () => {
           <section>
             <div className="container">
               {
-                allPosts?.map((post)=>{
+                loadingPosts ? <Loading /> : allPosts?.map((post)=>{
                   const imgTur = post?.photo.name.split(".")[1]
                   return(
                       <div key={post._id}  className="post-card">
@@ -147,6 +178,28 @@ const MyPostsPage = () => {
               </>
             )}
           >
+                <Upload
+                  name="avatar"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  showUploadList={false}
+                  action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                  // beforeUpload={beforeUpload}
+                  onChange={getImg}
+                >
+                  {postPhoto ? (
+                    <img
+                      src={`https://ap-blog-backend.up.railway.app/upload/${postPhoto}`}
+                      alt="avatar"
+                      style={{
+                        height: '100%',
+                        width : "100%"
+                      }}
+                    />
+                  ) : (
+                    <p>Upload</p>
+                  )}
+                </Upload>
             <form className="modal-form" onSubmit={addPost} >
                 <label htmlFor="title">Title</label>
                 <input required placeholder="length should be [5 - 50]" id="title" type="text" />
