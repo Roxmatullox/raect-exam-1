@@ -62,7 +62,7 @@ const AccountPage = () => {
             <input type="file" />
           </div>
           <div className="account-page-inputs">
-            <form onSubmit={save} onChange={getValues} >
+            <form onSubmit={save} >
               <input required value={values.first_name} name="first_name" placeholder="Firstname" type="text" />
               <input required value={values.last_name} name="last_name" placeholder="Lastname" type="text" />
               <input required value={values.username}  name="username" placeholder="Username" type="text" />
