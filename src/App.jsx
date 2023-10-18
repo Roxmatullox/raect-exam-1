@@ -35,13 +35,10 @@ function App() {
         {
           isAuth ? 
             <Route element={<Layout />}>
-              <Route element={role==="admin" ? null : <Layout />}><Route path="account" element={<AccountPage />} /></Route>
+              <Route path="account" element={<AccountPage />} />
+              <Route path="myPosts" element={<MyPostsPage />} /> 
             </Route>
           : null
-        }
-
-        {
-          isAuth && role === "user" ? <Route path="myPosts" element={<MyPostsPage />} />          : null
         }
 
         {

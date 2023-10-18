@@ -18,7 +18,6 @@ const AuthContextProvider = ({children}) => {
     try {
       const {data} = await request.get("auth/me" )
       setUser(data)
-      console.log(data?.photo)
     } catch (err) {
       console.log(err);
     }

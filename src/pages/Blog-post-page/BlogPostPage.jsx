@@ -22,7 +22,6 @@ const BlogPostPage = () => {
    getPost(  )
   }, [id])
 
-  console.log(post);
 
   const imgTur = post?.photo.name.split(".")[1]
 
@@ -45,7 +44,7 @@ const BlogPostPage = () => {
               </div>
             </div>
             <div className="post-title">
-              <h1>{post?.title}</h1>
+              <h2>{post?.title}</h2>
               <h3>Startup( {
                 post?.tags.map((tag)=>{
                   return `#${tag}  `

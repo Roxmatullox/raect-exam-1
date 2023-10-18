@@ -3,6 +3,24 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 40px ;
+
+  @media(max-width:720px){
+    &{
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+
+
+h1{
+  color: #232536;
+  text-align: center;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64px; /* 133.333% */
+  letter-spacing: -2px;
 }
 
 
@@ -44,5 +62,39 @@
   img{
     object-fit: cover !important;
     border-radius: 10px;
+  }
+}
+
+
+.password-update{
+  padding: 10px 0;
+
+  h3{
+    text-align: center;
+    color: #232536;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px; /* 133.333% */
+    letter-spacing: -2px;
+  }
+
+  input{
+    width: 100%;
+    border: 1px solid rgba(109, 110, 118, 0.50);
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+
+  }
+
+  p{
+    color: red;
+  }
+
+  button{
+    padding: 10px 20px;
+    background: var(--Yellow, #FFD050); 
+    border: none; 
   }
 }

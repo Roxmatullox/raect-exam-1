@@ -4,20 +4,29 @@ import "./AccountPage.scss";
 import { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import request from "../../server";
-import { Upload } from "antd";
+import { Button, Upload } from "antd";
 
 const AccountPage = () => {
   const navigate = useNavigate()
 
+  const [loadingBtn , setLoadingBtn] = useState(false)
+  const [passwordLoadingBtn , setPasswordLoadingBtn] = useState(false)
+
 
   const {user , setIsAuth , setRole ,getUser} = useContext(AuthContext)
+  
+  const [confirmPasswordErr , setConfirmPasswordErr] = useState()
 
   const logout = () => {
-    Cookies.remove("isLogin");
-    localStorage.removeItem("role");
-    setIsAuth(false);
-    setRole(null);
-    navigate("/");
+    const LogoutConfirm = confirm("Siz rostanxam Akkountdan chiqishni istaysixmi ?")
+
+    if (LogoutConfirm) {
+      Cookies.remove("isLogin");
+      localStorage.removeItem("role");
+      setIsAuth(false);
+      setRole(null);
+      navigate("/");
+    }
   };
 
   const [values , setValues] = useState(
@@ -55,10 +64,13 @@ const AccountPage = () => {
   const save = async (e) =>{
     e.preventDefault()
     try {
+      setLoadingBtn(true)
       await request.put("auth/details" , values)
       getUser()
     } catch (err) {
       console.log(err);
+    } finally{
+      setLoadingBtn(false)
     }
   }
 
@@ -81,9 +93,35 @@ const AccountPage = () => {
   }
 
 
+
+  const updatePassword = async (e) =>{
+    e.preventDefault()
+    const newPassword = {
+      "currentPassword" : e.target.currentPassword.value,
+      "newPassword" : e.target.newPassword.value
+    }
+
+    try {
+      setPasswordLoadingBtn(true)
+      if (e.target.newPassword.value === e.target.confirmPassword.value) {
+        await request.put("auth/password" , newPassword)
+      } else{
+        setConfirmPasswordErr(true)
+      }
+    } catch (err) {
+      console.log(err);
+    } finally{
+      setPasswordLoadingBtn(false)
+    }
+  }
+
+
+
+
   return (
     <main>
       <div className="container">
+      <h1>Account</h1>
         <div className="account-page">
           <div className="account-page-img">
             <Upload
@@ -108,6 +146,18 @@ const AccountPage = () => {
                 <p>Upload</p>
               )}
             </Upload>
+            <div className="password-update">
+              <h3>Update password</h3>
+              <form onSubmit={updatePassword}>
+                <input required  name="currentPassword" placeholder="Old Password" type="password" />
+                <input required  name="newPassword" placeholder="New Password" type="password" />
+                <input required  name="confirmPassword" placeholder="Confirm Password" type="password" />
+                {
+                  confirmPasswordErr ? <p>Parolni qayta tekshing !</p> : ""
+                }
+                <Button loading={passwordLoadingBtn} htmlType="submit" >Update password</Button>
+              </form>
+            </div>
           </div>
           <div className="account-page-inputs">
             <form onChange={getValues} onSubmit={save} >
@@ -119,7 +169,7 @@ const AccountPage = () => {
               <input value={values?.birthday?.split("T")[0]} name="birthday" placeholder="Birthday" type="date" />
               <input value={values.address} name="address" placeholder="Address" type="text" />  
               <input value={values.email} name="email" placeholder="email" type="email" /> 
-              <button type="submit">Save</button>  
+              <Button htmlType="submit" loading={loadingBtn}>Save</Button>
             </form> 
           </div>
         <button className="logout-btn" onClick={logout}>Logout</button>

@@ -31,7 +31,6 @@ const AllPosts = () => {
     getAllPosts()
   } , [search , active])
 
-  console.log(allPosts);
 
   return (
     <main>
