@@ -7,10 +7,12 @@ import "./MyPosts.scss"
 import Loading from "../Loading/Loading";
 import { AuthContext } from "../../context/AuthContext";
 
+
 const MyPostsPage = () => {
 
   const {getUser} = useContext(AuthContext)
 
+  const [selected , setSelected] = useState(null)
 
   const [postPhoto , setPostPhoto] = useState(null)
 
@@ -21,6 +23,13 @@ const MyPostsPage = () => {
   const [ loadingPosts , setLoadingPosts] = useState()
 
   const [allPosts , SetAllPosts] = useState()
+
+  const [values , setValues] = useState({
+    title : "",
+    description : "",
+    tags : "",
+    category : "",
+  }  )
 
   const [deletedPost , setDeletedPost] = useState(null)
 
@@ -35,6 +44,13 @@ const MyPostsPage = () => {
   const [open, setOpen] = useState(false);
 
   const showModal = () => {
+    setValues({
+      title : "",
+      description : "",
+      tags : "",
+      category : "",
+    })
+    setSelected(null)
     setOpen(true);
   };
   const handleOk = () => {
@@ -81,16 +97,13 @@ const MyPostsPage = () => {
 
   const addPost = async (e)=>{
     e.preventDefault()
-    const values = {
-      title : e.target.title.value,
-      description : e.target.description.value,
-      tags : e.target.tags.value,
-      category : e.target.category.value,
-      photo : photo || "6412131483b154fb6bf1199d"
-    }
     try {
       setLoading(true)
-      await request.post("post" , values)
+      if (selected === null) {
+        await request.post("post" , {...values , photo : photo})
+      } else {
+        await request.put(`post/${selected}` , {...values , photo : photo})
+      }
       setOpen(false)
     } catch (err) {
       console.log(err);
@@ -112,6 +125,32 @@ const MyPostsPage = () => {
     } catch (err) {
       console.log(err);
     } 
+  }
+
+
+  const formValues = (e)=>{
+    setValues({...values , 
+      [e.target.name]:e.target.value
+    })
+  }
+
+
+
+  const editPost = async (id)=>{
+    setOpen(true)
+    setSelected(id)
+    try {
+      const {data} = await request.get(`post/${id}`)
+      console.log(data);
+      setValues({
+        title : data?.title,
+        description : data?.description,
+        tags : data?.tags,
+        category : data?.category._id,
+      })
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 
@@ -146,6 +185,7 @@ const MyPostsPage = () => {
                           <p>{post?.description.slice(0,100)}</p>
                           <div>
                             <Button onClick={()=>deletePost(post._id)} type="primary">Delete</Button>
+                            <Button onClick={()=>editPost(post._id)} type="primary">Edit</Button>
                           </div>
                         </div>
                       </div>
@@ -200,15 +240,15 @@ const MyPostsPage = () => {
                     <p>Upload</p>
                   )}
                 </Upload>
-            <form className="modal-form" onSubmit={addPost} >
+            <form onChange={formValues} className="modal-form" onSubmit={addPost} >
                 <label htmlFor="title">Title</label>
-                <input required placeholder="length should be [5 - 50]" id="title" type="text" />
+                <input value={values.title} required placeholder="length should be [5 - 50]" name="title" type="text" />
                 <label htmlFor="description">Description</label>
-                <input required placeholder="length should be [10 - 1000]" id="description" type="text" />
+                <input value={values.description} required placeholder="length should be [10 - 1000]" name="description" type="text" />
                 <label htmlFor="tags">Tags</label>
-                <input required placeholder="" id="tags" type="text" />
+                <input value={values.tags} required placeholder="" name="tags" type="text" />
                 <label htmlFor="category">Category</label>
-                <input required placeholder="" id="category" type="text" />
+                <input value={values.category} required placeholder="" name="category" type="text" />
                 <button type="submit">Add</button>   
             </form>
           </Modal>
