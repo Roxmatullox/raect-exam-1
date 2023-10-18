@@ -6,3 +6,22 @@
   color: white;
   border: none; 
 }
+
+.modal-form{
+  display: flex;
+  flex-direction: column;
+
+  >input{
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid gray;
+  }
+
+  >button{
+    padding: 10px;
+    background: var(--Yellow, #FFD050); 
+    color: white;
+    border: none; 
+  }
+}

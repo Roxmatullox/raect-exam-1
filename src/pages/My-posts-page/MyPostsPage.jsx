@@ -61,16 +61,15 @@ const MyPostsPage = () => {
       description : e.target.description.value,
       tags : e.target.tags.value,
       category : e.target.category.value,
-      photo : "6412131483b154fb6bf1199d",
+      photo : "6412131483b154fb6bf1199d"
     }
-
+    console.log(values);
     try {
       await request.post("post" , values)
+      setOpen(false)
     } catch (err) {
       console.log(err);
     }
-
-    console.log(values);
   }
 
   return (
@@ -134,11 +133,15 @@ const MyPostsPage = () => {
           </>
         )}
       >
-        <form onSubmit={addPost} >
-            <input required id="title" placeholder="Title" type="text" />
-            <input required id="description" placeholder="Description" type="text" />
-            <input required id="tags" placeholder="Tags" type="text" />
-            <input required id="category" placeholder="Category" type="text" />
+        <form className="modal-form" onSubmit={addPost} >
+            <label htmlFor="title">Title</label>
+            <input required placeholder="length should be [5 - 50]" id="title" type="text" />
+            <label htmlFor="description">Description</label>
+            <input required placeholder="length should be [10 - 1000]" id="description" type="text" />
+            <label htmlFor="tags">Tags</label>
+            <input required placeholder="" id="tags" type="text" />
+            <label htmlFor="category">Category</label>
+            <input required placeholder="" id="category" type="text" />
             <button type="submit">Add</button>   
         </form>
       </Modal>
