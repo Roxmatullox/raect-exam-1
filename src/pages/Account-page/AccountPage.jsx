@@ -15,6 +15,8 @@ const AccountPage = () => {
   const [loadingBtn , setLoadingBtn] = useState(false)
   const [passwordLoadingBtn , setPasswordLoadingBtn] = useState(false)
 
+  const [refresh , setRefresh] = useState(false)
+
 
   const {user , setIsAuth , setRole ,getUser} = useContext(AuthContext)
   
@@ -61,7 +63,7 @@ const AccountPage = () => {
       }
     )
 
-  } , [user])
+  } , [user , refresh])
 
 
   const save = async (e) =>{
@@ -124,7 +126,9 @@ const AccountPage = () => {
       getUser()
     } catch (err) {
       console.log(err);
-    } 
+    } finally{
+      setRefresh(!refresh)
+    }
   }
 
 
