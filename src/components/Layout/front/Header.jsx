@@ -10,7 +10,7 @@ const Header = () => {
   const {isAuth} = useContext(AuthContext)
 
   return (
-    <header>
+    <header className="header">
       <div className="container">
         <nav>
           <div className="header-left">

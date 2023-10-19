@@ -51,15 +51,15 @@ const AllPosts = () => {
             <div className="container">
               {
                 allPosts?.map((post)=>{
-                  const imgTur = post?.photo.name.split(".")[1]
+                  const imgTur = post?.photo?.name.split(".")[1]
                   return(
-                    <Link key={post._id} to={`/blog/${post._id}`}>
+                    <Link key={post?._id} to={`/blog/${post?._id}`}>
                       <div  className="post-card">
                         <div className="post-img">
                           <img src={`https://ap-blog-backend.up.railway.app/upload/${post?.photo._id}.${imgTur}`} alt="" />
                         </div>
                         <div className="post-text">
-                          <h5>{post?.category.name}</h5>
+                          <h5>{post?.category?.name}</h5>
                           <h3>{post?.title}</h3>
                           <p>{post?.description.slice(0,100)}</p>
                         </div>

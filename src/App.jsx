@@ -13,6 +13,9 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage"
 import DashboardPage from "./pages/Dashboard-page/DashboardPage"
 import { CategoryPage } from "./pages/Categories-page/CategoryPage"
 import AllPosts from "./pages/All-posts-page/AllPostsPage"
+import AdminLayout from "./components/Layout/admin/DashboardLayout"
+import AllCategories from "./pages/AllCategories/AllCategories"
+import AllUsers from "./pages/AllUsers/AllUsers"
 
 function App() {
 
@@ -43,8 +46,10 @@ function App() {
 
         {
           isAuth && role === "admin" ? 
-            <Route element={<Layout />}>
+            <Route element={<AdminLayout />}>
               <Route path="dashboard" element={<DashboardPage />} />
+              <Route path="all-categories" element={<AllCategories />} />
+              <Route path="all-users" element={<AllUsers />} />
             </Route>
           : null
         }

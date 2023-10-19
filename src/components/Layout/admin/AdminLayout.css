@@ -1,0 +1,37 @@
+.admin-aside{
+  height: 100vh;
+  padding-top: 20px;
+  z-index: 999;
+}
+
+.admin-main{
+  height: calc(100vh - 112px);
+  overflow: auto;
+}
+
+
+.dashboard-nav a{
+  color: var(--Light, black);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.dashboard-nav button{
+  padding: 8px 24px;
+  margin-left: 59px;
+  color: var(--Black, #232536);
+  font-family: Sen;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; 
+}
+
+.dashboard-nav .header-right{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 24px;
+} 

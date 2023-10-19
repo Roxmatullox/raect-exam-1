@@ -67,7 +67,7 @@ const AccountPage = () => {
   const save = async (e) =>{
     e.preventDefault()
     try {
-      loading(true)
+      setLoading(true)
       setLoadingBtn(true)
       await request.put("auth/details" , values)
       getUser()
@@ -113,6 +113,19 @@ const AccountPage = () => {
     }
   }
 
+
+
+
+  const getImg = async(e)=>{
+    const formData = new FormData()
+    formData.append('file' , e.file.originFileObj )
+    try {
+      await request.post(`auth/upload` , formData)
+      getUser()
+    } catch (err) {
+      console.log(err);
+    } 
+  }
 
 
 
