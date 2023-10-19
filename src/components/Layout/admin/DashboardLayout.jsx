@@ -27,7 +27,7 @@ const AdminLayout = () => {
   const location = useLocation()
 
   return (
-    <Layout>
+    <Layout className='admin-layout'>
       <Sider className='admin-aside' trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
@@ -56,6 +56,7 @@ const AdminLayout = () => {
       <Layout>
         <Header
           style={{
+            backgroundColor:"#001529",
             padding: 0,
             background: colorBgContainer,
             display:"flex"
@@ -75,9 +76,9 @@ const AdminLayout = () => {
             width:"100%"
            }}>
                 <div className="header-left">
-                  {
-                    isAuth ? <NavLink to="myPosts">My posts</NavLink> : <NavLink to=""><img src={NavLogo} alt="" /></NavLink> 
-                  }
+                {
+                  isAuth ? <NavLink to="myPosts">My posts</NavLink> : <NavLink to=""><img src={NavLogo} alt="" /></NavLink> 
+                }
                 </div>
                 <div className="header-right">
                   <NavLink to="">Home</NavLink>

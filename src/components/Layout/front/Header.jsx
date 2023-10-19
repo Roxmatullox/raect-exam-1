@@ -15,7 +15,7 @@ const Header = () => {
         <nav>
           <div className="header-left">
             {
-              isAuth ? <NavLink to="myPosts">My posts</NavLink> : <NavLink to=""><img src={NavLogo} alt="" /></NavLink> 
+              isAuth ? <><NavLink to="dashboard">Dashboard</NavLink> <a>||</a> <NavLink to="myPosts">My posts</NavLink></> : <NavLink to=""><img src={NavLogo} alt="" /></NavLink> 
             }
           </div>
           <div className="header-right">

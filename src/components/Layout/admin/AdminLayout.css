@@ -11,7 +11,7 @@
 
 
 .dashboard-nav a{
-  color: var(--Light, black);
+  color: var(--Light, white);
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -35,3 +35,11 @@
   align-items: center;
   gap: 24px;
 } 
+
+.admin-layout svg{
+  color: white;
+}
+
+.admin-layout header{
+  background-color:#001529 !important
+}
