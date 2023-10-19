@@ -4,9 +4,11 @@ import { Provider } from "react-redux"
 import { applyMiddleware, combineReducers, createStore } from "redux"
 import CategoryReducer from "../reducers/category"
 import thunk from "redux-thunk"
+import UsersReducer from "../reducers/users"
 
 const rootReducers = combineReducers({
-  category : CategoryReducer
+  category : CategoryReducer,
+  users : UsersReducer ,
 })
 
 const Store = createStore( rootReducers , applyMiddleware(thunk))

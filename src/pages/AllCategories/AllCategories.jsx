@@ -17,6 +17,9 @@ const AllCategories = () => {
     dispatch(getCategories(search))
   } , [dispatch , search])
 
+  
+
+  
 
   const columns = [
     {
@@ -60,7 +63,7 @@ const AllCategories = () => {
       </div>
       <Table loading={loading} className="table"  title={()=>(
         <Flex justify="space-between" align="center">
-          <h2>Teachers ({total})</h2>
+          <h2>Categories ({total})</h2>
         </Flex>
       )} pagination={{pageSize:3}} dataSource={categories} columns={columns} />
     </Fragment>

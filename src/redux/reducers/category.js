@@ -1,4 +1,4 @@
-import { CATEGORIES, LOADING, TOTAL } from "../types/category"
+import { CATEGORIES, CATEGORY_LOADING, CATEGORY_TOTAL } from "../types/category"
 
 const initialState = {
   categories : [],
@@ -10,9 +10,9 @@ const CategoryReducer = ( state = initialState ,{ type , payload }  )=>{
   switch (type) {
     case CATEGORIES:
       return {...state , categories : payload}
-    case TOTAL:
+    case CATEGORY_TOTAL:
       return {...state , total : payload}
-    case LOADING:
+    case CATEGORY_LOADING:
       return {...state , loading : payload}
   }
 

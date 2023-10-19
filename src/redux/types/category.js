@@ -1,6 +1,6 @@
 const CATEGORIES = "categories"
-const TOTAL = "total"
-const LOADING = "loading"
+const CATEGORY_TOTAL = "total"
+const CATEGORY_LOADING = "loading"
 
 
-export {CATEGORIES , TOTAL , LOADING}
+export {CATEGORIES , CATEGORY_TOTAL , CATEGORY_LOADING}
