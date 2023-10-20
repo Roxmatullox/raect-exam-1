@@ -7,7 +7,7 @@ import { AuthContext } from "../../../context/AuthContext";
 
 const Header = () => {
 
-  const {isAuth} = useContext(AuthContext)
+  const {isAuth , role} = useContext(AuthContext)
 
   return (
     <header className="header">
@@ -15,7 +15,7 @@ const Header = () => {
         <nav>
           <div className="header-left">
             {
-              isAuth ? <><NavLink to="dashboard">Dashboard</NavLink> <a>||</a> <NavLink to="myPosts">My posts</NavLink></> : <NavLink to=""><img src={NavLogo} alt="" /></NavLink> 
+              isAuth ? <>{role==="admin" ? <><NavLink to="dashboard">Dashboard</NavLink> <a>||</a> <NavLink to="myPosts">My posts</NavLink></> : <NavLink to="myPosts">My posts</NavLink> }</> : <NavLink to=""><img src={NavLogo} alt="" /></NavLink> 
             }
           </div>
           <div className="header-right">
