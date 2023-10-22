@@ -1,7 +1,7 @@
-import { Flex, Table } from "antd";
+import { Button, Flex, Space, Table } from "antd";
 import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import getUsers from "../../redux/actions/users"
+import getUsers, { deleteUser } from "../../redux/actions/users"
 import { useState } from "react";
 
 
@@ -9,6 +9,7 @@ const AllUsers = () => {
 
   const [active , setActive] = useState(1)
   const [totalPaginate , setTotalPaginate] = useState()
+  const [refresh , setRefresh] = useState(false)
 
   const dispatch = useDispatch()
   const {users , total , loading} = useSelector((state)=>state.users)
@@ -16,7 +17,7 @@ const AllUsers = () => {
   useEffect(()=>{
     setTotalPaginate(total / 10)
     dispatch(getUsers(active))
-  } , [dispatch , active ,total ])
+  } , [dispatch , active ,total , refresh ])
 
   const columns = [
     {
@@ -34,18 +35,29 @@ const AllUsers = () => {
       dataIndex: 'last_name',
       key: 'last_name',
     },
-    // {
-    //   title: 'Action',
-    //   dataIndex: 'id',
-    //   key: 'action',
-    //   render : () => {
-    //     return (<Space size="middle" >
-    //       <Button  type="primary" >Edit</Button>
-    //       <Button  type="primary" danger >Delete</Button>
-    //     </Space>)
-    //   }
-    // },
+    {
+      title: 'Action',
+      dataIndex: '_id',
+      key: '_id',
+      render : (data) => {
+        return (<Space size="middle" >
+          <Button onClick={()=>deleteData(data)}  type="primary" danger >Delete</Button>
+        </Space>)
+      }
+    },
   ];
+
+
+  const deleteData = (id)=>{
+    const confirmDelete = confirm("Bu user ochirilsinmi?")
+    if (confirmDelete) {
+      try {
+        dispatch(deleteUser(id , active))
+      } finally {
+        setRefresh(!refresh)
+      }
+    }
+  }
 
 
 

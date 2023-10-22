@@ -48,7 +48,7 @@ const AdminLayout = () => {
             {
               key: '/all-users',
               icon: <UserOutlined />,
-              label: <NavLink to="/all-users" >All useres</NavLink>,
+              label: <NavLink to="/all-users" >All users</NavLink>,
             },
           ]}
         />

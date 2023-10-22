@@ -16,4 +16,14 @@ const getUsers = (active)=>{
   }
 }
 
+export const deleteUser = async (id , active)=>{
+  try {
+    await request.delete(`user/${id}`)
+  } catch (err) {
+    console.log(err);
+  } finally{
+    getUsers(active)
+  }
+}
+
 export default getUsers
